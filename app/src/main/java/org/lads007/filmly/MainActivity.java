@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... search) {
             // params comes from the execute() call: params[0] is the url.
-            String url = IMDB_BASE + search[0];
+            String basicSearch = search[0].replace(" ", "+");
+            String url = IMDB_BASE + basicSearch;
             Log.w("url", url);
             return new WebRequest().makeWebServiceCall(url, WebRequest.POSTRequest);
         }
@@ -56,15 +61,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            ListView resultsShow = (ListView) findViewById(R.id.listView);
+            List<String> list = new ArrayList<String>();
             try {
-                JSONArray jsonArray = new JSONArray(s);
-                for (JSONObject jsonObject : jsonArray) {
+                JSONObject searchResult = new JSONObject(s);
+                JSONArray results = searchResult.getJSONArray("Search");
+                Log.i("results", results.toString());
 
+                for (int i = 0; i < results.length(); i++) {
+                    list.add(results.getJSONObject(i).getString("Title"));
                 }
             } catch (JSONException e) {
-                Toast toast = Toast.makeText(getApplicationContext(), "A problem occured", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(MainActivity.this, "A problem occured", Toast.LENGTH_SHORT);
                 toast.show();
             }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                    MainActivity.this,
+                    android.R.layout.simple_list_item_1,
+                    list);
+            Log.i("list", list.toString());
+            resultsShow.setAdapter(arrayAdapter);
         }
 
     }
