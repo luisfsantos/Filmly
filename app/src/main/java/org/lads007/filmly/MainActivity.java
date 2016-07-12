@@ -62,25 +62,25 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             ListView resultsShow = (ListView) findViewById(R.id.listView);
-            List<String> list = new ArrayList<String>();
+            List<String> titleList = new ArrayList<String>();
+            List<String> urlList = new ArrayList<String>();
             try {
                 JSONObject searchResult = new JSONObject(s);
                 JSONArray results = searchResult.getJSONArray("Search");
                 Log.i("results", results.toString());
 
                 for (int i = 0; i < results.length(); i++) {
-                    list.add(results.getJSONObject(i).getString("Title"));
+                    titleList.add(results.getJSONObject(i).getString("Title"));
+                    urlList.add(results.getJSONObject(i).getString("Poster"));
                 }
             } catch (JSONException e) {
                 Toast toast = Toast.makeText(MainActivity.this, "A problem occured", Toast.LENGTH_SHORT);
                 toast.show();
             }
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                    MainActivity.this,
-                    android.R.layout.simple_list_item_1,
-                    list);
-            Log.i("list", list.toString());
-            resultsShow.setAdapter(arrayAdapter);
+            SearchResultsAdapter searchAdapter = new SearchResultsAdapter(MainActivity.this, titleList, urlList);
+            Log.i("list", titleList.toString());
+            Log.i("listUrl", urlList.toString());
+            resultsShow.setAdapter(searchAdapter);
         }
 
     }
