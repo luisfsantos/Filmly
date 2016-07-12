@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             ListView resultsShow = (ListView) findViewById(R.id.listView);
             List<String> titleList = new ArrayList<String>();
             List<String> urlList = new ArrayList<String>();
+            List<String> yearList = new ArrayList<String>();
             try {
                 JSONObject searchResult = new JSONObject(s);
                 JSONArray results = searchResult.getJSONArray("Search");
@@ -72,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < results.length(); i++) {
                     titleList.add(results.getJSONObject(i).getString("Title"));
                     urlList.add(results.getJSONObject(i).getString("Poster"));
+                    yearList.add(results.getJSONObject(i).getString("Year"));
                 }
             } catch (JSONException e) {
                 Toast toast = Toast.makeText(MainActivity.this, "A problem occured", Toast.LENGTH_SHORT);
                 toast.show();
             }
-            SearchResultsAdapter searchAdapter = new SearchResultsAdapter(MainActivity.this, titleList, urlList);
+            SearchResultsAdapter searchAdapter = new SearchResultsAdapter(MainActivity.this, titleList, urlList, yearList);
             Log.i("list", titleList.toString());
             Log.i("listUrl", urlList.toString());
             resultsShow.setAdapter(searchAdapter);

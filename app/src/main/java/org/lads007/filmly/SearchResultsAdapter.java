@@ -20,13 +20,15 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
     private Activity context;
     private List<String> title;
     private List<String> imageURL;
+    private List<String> year;
 
-    public SearchResultsAdapter(Activity context, List<String> title, List<String> imageURL) {
+    public SearchResultsAdapter(Activity context, List<String> title, List<String> imageURL, List<String> year) {
         super(context, R.layout.searchresults, title);
 
         this.context = context;
         this.title = title;
         this.imageURL = imageURL;
+        this.year = year;
 
     }
 
@@ -40,7 +42,7 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
 
         txtTitle.setText(title.get(position));
         Picasso.with(context).load(imageURL.get(position)).into(imageView);
-        extratxt.setText("Description "+title.get(position));
+        extratxt.setText(year.get(position));
         return rowView;
     }
 }
