@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         if (networkInfo != null && networkInfo.isConnected()) {
             new SearchIMDB().execute(stringUrl);
         } else {
-            Toast toast = Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, getText(R.string.mobile_data), Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... search) {
-            // params comes from the execute() call: params[0] is the url.
             String basicSearch = search[0].replace(" ", "+");
             String url = IMDB_BASE + basicSearch;
             Log.w("url", url);
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             List<String> titleList = new ArrayList<String>();
             List<String> urlList = new ArrayList<String>();
             List<String> yearList = new ArrayList<String>();
+
             try {
                 JSONObject searchResult = new JSONObject(s);
                 JSONArray results = searchResult.getJSONArray("Search");
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     titleList.add(results.getJSONObject(i).getString("Title"));
                     urlList.add(results.getJSONObject(i).getString("Poster"));
                     yearList.add(results.getJSONObject(i).getString("Year"));
+
                 }
             } catch (JSONException e) {
                 Toast toast = Toast.makeText(MainActivity.this, "A problem occured", Toast.LENGTH_SHORT);

@@ -38,7 +38,7 @@ public class SearchResultsAdapter extends ArrayAdapter<String> {
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.title);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.year);
+        TextView extratxt = (TextView) rowView.findViewById(R.id.actors);
 
         txtTitle.setText(title.get(position));
         Picasso.with(context).load(imageURL.get(position)).into(imageView);

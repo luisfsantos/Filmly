@@ -3,4 +3,5 @@
     <string name="find_a_film">Find a film</string>
     <string name="url_error">Unable to retrieve web page. URL may be invalid.</string>
     <string name="search">Search</string>
+    <string name="mobile_data">Cannot connect to network. please make sure data is enabled</string>
 </resources>

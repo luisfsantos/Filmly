@@ -18,11 +18,10 @@
         android:id="@+id/title"
         android:textColor="#f57c00"
         android:padding="8dp"
-        android:textAllCaps="true"
-        android:layout_above="@+id/year"
-        android:layout_alignStart="@+id/year" />
+        android:layout_above="@+id/actors"
+        android:layout_alignStart="@+id/actors" />
     <TextView
-        android:id="@+id/year"
+        android:id="@+id/actors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"

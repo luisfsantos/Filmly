@@ -19,21 +19,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/search"
+        android:text = "@string/search"
         android:id="@+id/SearchFilm"
+        android:layout_marginTop="24dp"
+        android:onClick="searchFilm"
         android:layout_below="@+id/textView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="44dp"
-        android:onClick="searchFilm"/>
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/find"
-        android:text="@string/find_a_film"
+        android:hint="@string/find_a_film"
         android:layout_alignBottom="@+id/SearchFilm"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/SearchFilm" />
+        android:layout_toStartOf="@+id/SearchFilm"
+        android:singleLine="true"
+        android:lines="1"/>
 
     <ListView
         android:layout_width="wrap_content"
